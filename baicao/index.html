@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+      }
+      .bg-black {
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }
+      .single-card {
+        background-image: url("./imgs/pack.jpg");
+        background-size: contain;
+        width: 100px;
+        height: 151px;
+      }
+      .pack {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+        box-shadow: -1px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.1s;
+        will-change: transform;
+      }
+      .pack2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-48%, -48%);
+        border-radius: 5px;
+        box-shadow: -1px -1px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+      }
+
+      .pack2:hover {
+        transform: rotate(5deg) translate(-48%, -48%);
+      }
+
+      .open-btn,
+      .clear-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-color: red;
+        padding: 10px;
+        color: aliceblue;
+        transform: translate(-50%, -50%);
+        border-radius: 7px;
+        box-shadow: -1px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.1s;
+        cursor: pointer;
+      }
+
+      .open-btn:hover,
+      .clear-btn:hover {
+        transform: translate(-50%, -50%) scale(1.5);
+      }
+      .player {
+        position: absolute;
+        width: 100px;
+        height: 151px;
+      }
+      .player1 {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .player2 {
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+      .player3 {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .player4 {
+        top: 50%;
+        left: 0%;
+        transform: translateY(-50%);
+      }
+
+      .left-card {
+        position: absolute;
+        left: calc(-5px - 100%);
+      }
+      .mid-card {
+        position: absolute;
+        left: 0%;
+      }
+
+      .rigth-card {
+        position: absolute;
+        left: calc(5px + 100%);
+      }
+
+      .top-card {
+        position: absolute;
+        top: calc(-5px - 100%);
+      }
+
+      .bot-card {
+        position: absolute;
+        top: calc(5px + 100%);
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .card {
+        border-radius: 5px;
+      }
+      .unlock {
+        background-color: rgb(255, 247, 247);
+        background-image: none;
+      }
+
+      .left-num {
+        top: 0;
+        position: absolute;
+        left: 0;
+        margin: 5px 10px;
+        font-weight: 700;
+        font-size: 22px;
+      }
+
+      .bot-num {
+        bottom: 0;
+        position: absolute;
+        right: 0;
+        margin: 5px 10px;
+        font-weight: 700;
+        font-size: 22px;
+      }
+
+      .type-red {
+        color: red;
+      }
+      .type-black {
+        color: black;
+      }
+      .result {
+        position: relative;
+        color: aliceblue;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .top-result {
+        position: absolute;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .left-result {
+        position: absolute;
+        top: 50%;
+        left: 110px;
+        transform: translateY(-50%);
+      }
+      .bot-result {
+        position: absolute;
+        bottom: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .right-result {
+        position: absolute;
+        top: 50%;
+        right: 110px;
+        transform: translateY(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-black">
+      <div class="pack single-card"></div>
+      <div class="pack2 single-card"></div>
+      <div class="open-btn hidden">Mở bài</div>
+
+      <div class="clear-btn hidden">Dọn bàn</div>
+      <div class="result">
+        <span class="top-result">Top</span>
+        <span class="right-result">Rignt</span>
+        <span class="bot-result">Bot</span>
+        <span class="left-result">Left</span>
+      </div>
+
+      <div class="player player1">
+        <div class="single-card mid-card card hidden">
+          <span class="left-num"></span>
+          <span class="bot-num type-red"></span>
+        </div>
+        <div class="single-card left-card card hidden">
+          <span class="left-num"></span>
+          <span class="bot-num"></span>
+        </div>
+        <div class="single-card rigth-card card hidden">
+          <span class="left-num"></span>
+          <span class="bot-num"></span>
+        </div>
+      </div>
+      <div class="player player2">
+        <div class="single-card mid-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+        <div class="single-card top-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+        <div class="single-card bot-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+      </div>
+      <div class="player player3">
+        <div class="single-card mid-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+        <div class="single-card left-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+        <div class="single-card rigth-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+      </div>
+      <div class="player player4">
+        <div class="single-card mid-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+        <div class="single-card top-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+        <div class="single-card bot-card card hidden">
+          <span class="left-num"></span> <span class="bot-num"></span>
+        </div>
+      </div>
+    </div>
+
+    <script src="baicao.js"></script>
+  </body>
+</html>

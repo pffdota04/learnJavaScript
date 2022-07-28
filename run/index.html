@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .container {
+        max-width: 1200px;
+        overflow: hidden;
+        margin: 0 auto;
+      }
+      .bg {
+        background-image: url("./imgs/bg.jpg");
+        width: 100%;
+        height: 688px;
+        transition: all 0.01s;
+        position: relative;
+      }
+
+      .player {
+        background-image: url("./imgs/run.gif");
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        position: absolute;
+        bottom: 200px;
+        left: 100px;
+        /* background-color: blue; */
+      }
+
+      .obj {
+        background-image: url("./imgs/obj.png");
+        width: 50px;
+        height: 67px;
+        background-size: contain;
+        position: absolute;
+        bottom: 200px;
+        left: 1200px;
+        filter: drop-shadow(1px 3px 6px rgb(255 255 255));
+
+        /* background-color: red; */
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .start,
+      .again {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: red;
+        border-radius: 5px;
+        padding: 10px;
+        color: aliceblue;
+        cursor: pointer;
+      }
+
+      .score {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 25px;
+      }
+
+      .h-score {
+        top: 20px;
+        font-size: 15px;
+      }
+
+      .btn-jump {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: red;
+        border-radius: 5px;
+        padding: 10px;
+        color: aliceblue;
+        cursor: pointer;
+        z-index: 99;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bg">
+        <div class="player"></div>
+        <div class="obj"></div>
+        <!-- <div class="btn-jump">JUMP!</div> -->
+        <div class="start">Start</div>
+        <div class="again hidden">AGAIN</div>
+        <div class="score">Score: <span class="score-span">0</span></div>
+        <div class="score h-score">
+          Highscore: <span class="h-score-span">0</span>
+        </div>
+      </div>
+    </div>
+    <script src="run.js"></script>
+  </body>
+</html>

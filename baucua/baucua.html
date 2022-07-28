@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      h1,
+      h4 {
+        margin: 8px 0 8px 0;
+      }
+      .snipper-container {
+        text-align: center;
+        position: relative;
+        width: 350px;
+        margin: 0 auto;
+      }
+      .sninner {
+        display: inline-block;
+        width: 100px;
+        height: 300px;
+        overflow: hidden;
+        background: #fff url("./images/baucua2.png");
+        will-change: backgroundPosition;
+        transition: 0.3s all;
+        transform: translateZ(0);
+        background-position-y: 0px;
+      }
+
+      .arrow-in-snipnner {
+        position: absolute;
+        top: 100px;
+        background-color: red;
+        width: 100%;
+        height: 100px;
+        opacity: 0.2;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: red;
+        padding: 5px 20px;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .grid-2-row-3-col {
+        display: grid;
+        grid-template-rows: 155px 155px;
+        grid-auto-flow: column;
+        grid-gap: 10px;
+      }
+
+      @media only screen and (max-width: 515px) {
+        .grid-2-row-3-col {
+          display: grid;
+          grid-template-rows: 155px 155px 155px;
+          grid-auto-flow: column;
+          grid-gap: 5px;
+        }
+      }
+
+      .item {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        background: #fff url("./images/baucua.png");
+        margin: 0 auto;
+        border: 3px solid red;
+        border-radius: 15px;
+        cursor: pointer;
+        background-color: rgb(251, 255, 0);
+      }
+
+      .item:hover {
+        opacity: 0.5;
+        transform: scale(1.05);
+        transition: all 0.3s;
+      }
+      .img-nai {
+        background-position-y: 0px;
+      }
+
+      .img-ca {
+        background-position-y: 450px;
+      }
+
+      .img-bau {
+        background-position-y: -150px;
+      }
+
+      .img-cua {
+        background-position-y: 300px;
+      }
+
+      .img-ga {
+        background-position-y: -300px;
+      }
+
+      .img-tom {
+        background-position-y: 150px;
+      }
+
+      .user-fixed {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(255, 0, 0, 0.1);
+        padding-top: 10px;
+      }
+
+      .user-score {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .user-score p {
+        margin: 0 0 5px 0;
+      }
+      .user-face {
+        width: 80px;
+        height: auto;
+        border-radius: 50px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        background-color: aliceblue;
+        padding: 15px;
+        border-radius: 7px;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: gray;
+        opacity: 0.5;
+      }
+
+      .score-input {
+        width: 40px;
+      }
+
+      .user-in-modal {
+        border: 2px solid red;
+        margin: 5px;
+        padding: 5px;
+        border-radius: 10px;
+        background-color: rgb(255, 237, 231);
+      }
+
+      .modal-choose {
+        font-size: 25px;
+        text-align: center;
+        color: red;
+        font-weight: 700;
+      }
+
+      .bet-board {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        /* transform: translateY(-50%); */
+        background-color: rgba(253, 243, 243, 0.9);
+        padding: 5px;
+        border-radius: 20px;
+        border: 2px red dashed;
+      }
+      .hidden-board-btn {
+        display: inline-block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+      }
+      .hidden-board-btn:hover {
+        transform: scale(1.3);
+      }
+      .show-board-btn {
+        cursor: pointer;
+      }
+
+      .show-board-btn:hover {
+        transform: scale(1.3);
+      }
+
+      .color-red {
+        color: red;
+      }
+
+      .color-green {
+        color: rgb(0, 255, 0);
+      }
+
+      .bg-red {
+        background-color: red;
+      }
+
+      .space {
+        height: 110px;
+      }
+
+      .dis {
+        background-color: rgb(228, 228, 228);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h1 class="text-center">Game Bầu Cua</h1> -->
+    <!-- Vòng quay  -->
+    <div class="snipper-container">
+      <div class="sninner"></div>
+      <div class="sninner"></div>
+      <div class="sninner"></div>
+      <div class="arrow-in-snipnner"></div>
+    </div>
+
+    <!-- Nút lắc -->
+    <div class="text-center">
+      <div class="btn btn-start">Lắc!</div>
+    </div>
+    <hr />
+
+    <!-- Đặt cược -->
+    <div class="user-action text-center">
+      <div class="grid-2-row-3-col">
+        <div class="item img-nai btn-modal"></div>
+        <div class="item img-ca btn-modal"></div>
+        <div class="item img-bau btn-modal"></div>
+        <div class="item img-cua btn-modal"></div>
+        <div class="item img-ga btn-modal"></div>
+        <div class="item img-tom btn-modal"></div>
+      </div>
+    </div>
+    <hr />
+    <!-- Thống kê -->
+    <div class="user-score user-fixed">
+      <div class="user">
+        <img src="./images/user1.jpg" alt="user avatar" class="user-face" />
+        <p class="text-center">
+          <span class="total-score"></span> 💲 <span class="compare"></span>
+        </p>
+      </div>
+      <div class="user">
+        <img src="./images/user2.jpg" alt="user avatar" class="user-face" />
+        <p class="text-center">
+          <span class="total-score"></span> 💲 <span class="compare"></span>
+        </p>
+      </div>
+      <div class="user">
+        <img src="./images/user3.jpg" alt="user avatar" class="user-face" />
+        <p class="text-center">
+          <span class="total-score"></span> 💲 <span class="compare"></span>
+        </p>
+      </div>
+      <div class="user">
+        <img src="./images/user4.jpg" alt="user avatar" class="user-face" />
+        <p class="text-center">
+          <span class="total-score"></span> 💲 <span class="compare"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal hidden">
+      <div class="modal-body">
+        <div class="modal-choose"></div>
+        <div class="user-choose">
+          <div class="user-score">
+            <div class="user user-in-modal">
+              <img
+                src="./images/user1.jpg"
+                alt="user avatar"
+                class="user-face"
+              />
+              <p class="text-center">
+                <input
+                  type="number"
+                  step="10"
+                  class="score-input user-1-input"
+                  value="0"
+                  min="0"
+                />
+                💲
+              </p>
+            </div>
+            <div class="user user-in-modal">
+              <img
+                src="./images/user2.jpg"
+                alt="user avatar"
+                class="user-face"
+              />
+              <p class="text-center">
+                <input
+                  type="number"
+                  step="10"
+                  class="score-input user-2-input"
+                  value="0"
+                  min="0"
+                />
+                💲
+              </p>
+            </div>
+            <div class="user user-in-modal">
+              <img
+                src="./images/user3.jpg"
+                alt="user avatar"
+                class="user-face"
+              />
+              <p class="text-center">
+                <input
+                  type="number"
+                  step="10"
+                  class="score-input user-3-input"
+                  value="0"
+                  min="0"
+                />
+                💲
+              </p>
+            </div>
+            <div class="user user-in-modal">
+              <img
+                src="./images/user4.jpg"
+                alt="user avatar"
+                class="user-face"
+              />
+              <p class="text-center">
+                <input
+                  type="number"
+                  step="10"
+                  class="score-input user-4-input"
+                  value="0"
+                  min="0"
+                />
+                💲
+              </p>
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="btn btn-bet">Xác nhận</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
+
+    <!-- BET Board -->
+    <div class="bet-board">
+      <div class="showing-board">
+        <h4 class="text-center">BET BOARD</h4>
+        <div class="hidden-board-btn">⏩</div>
+        <ul style="padding-inline-start: 20px">
+          <li>Elon Mush: <span class="user1-board">Chưa cược</span></li>
+          <li>Women: <span class="user2-board">Chưa cược</span></li>
+          <li>Leonardo: <span class="user3-board">Chưa cược</span></li>
+          <li>John Cena: <span class="user4-board">Chưa cược</span></li>
+        </ul>
+      </div>
+      <div class="hiddening-board hidden">
+        <div class="show-board-btn">⏪</div>
+      </div>
+    </div>
+    <div class="space"></div>
+    <script src="baucua.js"></script>
+  </body>
+</html>
